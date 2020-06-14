@@ -23,5 +23,8 @@
   :serial t
   :depends-on (#:newgl #:j-utils #:alexandria #:local-time #:3d-vectors #:3d-matrices)
   :components ((:file "package")
-               (:file "shader-book"))
+               (:file "shader-book")
+               (:file "hello-world")
+               (:file "shaping-functions")
+               )
   :in-order-to ((test-op (test-op shader-book.test))))

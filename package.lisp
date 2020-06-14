@@ -17,4 +17,5 @@
 
 (defpackage :shader-book
   (:use #:cl #:j-utils #:alexandria #:3d-vectors)
-  (:export #:hello))
+  (:export #:hello
+           #:shaping-functions))

@@ -22,44 +22,5 @@
 (defun shader-file (file-name)
   (newgl:shader-from-file (merge-pathnames *shader-dir* file-name)))
 
-(defclass hello-world (newgl:vertex-object)
-  ((newgl:vertices :initform #(-1.0f0   1.0f0  0.0f0  -1.0f0   1.0f0
-                               -1.0f0  -1.0f0  0.0f0  -1.0f0  -1.0f0
-                               1.0f0   1.0f0  0.0f0   1.0f0   1.0f0
-                               1.0f0  -1.0f0  0.0f0   1.0f0  -1.0f0))
-   (newgl:indices :initform #(0 1 2 1 3 2))
-   (newgl:shader-program :initform (newgl:make-shader-program
-                                    (shader-file "hello-fragment.glsl")
-                                    (shader-file "simple-vertex.glsl")))
-   (start-time :initform (local-time:now)))
-  (:documentation "Hello world shader."))
-
-(defmethod newgl:set-uniforms ((object hello-world))
-  (call-next-method)
-  (with-slots (newgl:shader-program start-time) object
-    
-    
-    
-    (let ((t-diff (local-time:timestamp-difference (local-time:now) start-time))
-          (cur-pos (glfw:get-cursor-position))
-          (win-size (glfw:get-window-size)))
-
-      (newgl:set-uniform newgl:shader-program
-                         "u_time"
-                         (coerce t-diff 'single-float))  
-      (newgl:set-uniform newgl:shader-program
-                         "u_resolution"
-                         (vec2 (coerce (car win-size) 'single-float)
-                               (coerce (cadr win-size) 'single-float)))
-      (newgl:set-uniform newgl:shader-program
-                         "u_resolution"
-                         (vec2 (coerce (car cur-pos) 'single-float)
-                               (coerce (cadr cur-pos) 'single-float))))))
-
-(defmethod newgl:update ((object hello-world))
-  (newgl:set-uniforms object))
-
-(defun hello (&optional debug)
-  (newgl:display (make-instance 'hello-world) :debug debug))
 
 
