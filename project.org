@@ -1,0 +1,32 @@
+* shader-book
+** About
+Following along with [[https://thebookofshaders.com/][The Book Of Shaders]]
+
+
+** License
+ISC
+
+Copyright (c) 2020 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+
+
+
+
+
+* TODOs
+
+** Follow 'The Book of Shaders'
+
+* Running 
+
+** Run 'Hello World'
+This example shows the green intensity as sin(t).
+
+#+BEGIN_SRC lisp
+
+(ql:quickload :shader-book)
+(shader-book:hello)
+
+#+END_SRC
+
+#+RESULTS:
+: #<CALL-TASK :FUNC #<COMPILED-LEXICAL-CLOSURE (:INTERNAL NEWGL:DISPLAY) #x3020047A359F> :STATUS :SCHEDULED #x3020047A353D>
