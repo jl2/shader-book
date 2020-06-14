@@ -21,7 +21,15 @@ vec4 magenta() {
      return vec4(1.0, 0.0, 1.0, 1.0);
 }
 
+vec4 by_coord() {
+     vec2 st = gl_FragCoord.xy/u_resolution;
+     return vec4(st.x, st.y, 0.0, 1.0);
+}
+
+vec4 green_sine () {
+     return vec4(0.0, abs(sin(u_time)), 0.0, 1.0);
+}
 void main() {
-     Color = vec4(0.0, abs(sin(u_time)), 0.0, 1.0);
+     Color = by_coord();
 }
 
