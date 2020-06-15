@@ -26,5 +26,6 @@
                (:file "shader-book")
                (:file "hello-world")
                (:file "shaping-functions")
+               (:file "colors")
                )
   :in-order-to ((test-op (test-op shader-book.test))))
