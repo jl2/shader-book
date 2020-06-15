@@ -22,5 +22,23 @@
 (defun shader-file (file-name)
   (newgl:shader-from-file (merge-pathnames *shader-dir* file-name)))
 
+(defun hello (&optional debug)
+  (newgl:display (make-instance 'shader-canvas
+                                :shader-program (newgl:make-shader-program
+                                                 (shader-file "hello-fragment.glsl")
+                                                 (shader-file "simple-vertex.glsl")))
+                 :debug debug))
 
+(defun shaping-functions (&optional debug)
+  (newgl:display (make-instance 'shader-canvas
+                                :shader-program (newgl:make-shader-program
+                                                 (shader-file "shaping-functions-fragment.glsl")
+                                                 (shader-file "simple-vertex.glsl")))
+                 :debug debug))
 
+(defun colors (&optional debug)
+  (newgl:display (make-instance 'shader-canvas
+                                :shader-program (newgl:make-shader-program
+                                                 (shader-file "colors-fragment.glsl")
+                                                 (shader-file "simple-vertex.glsl")))
+                 :debug debug))
