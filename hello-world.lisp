@@ -20,14 +20,18 @@
 (defclass hello-world (newgl:vertex-object)
   ((newgl:vertices :initform #(-1.0f0   1.0f0  0.0f0  -1.0f0   1.0f0
                                -1.0f0  -1.0f0  0.0f0  -1.0f0  -1.0f0
-                               1.0f0   1.0f0  0.0f0   1.0f0   1.0f0
-                               1.0f0  -1.0f0  0.0f0   1.0f0  -1.0f0))
+                                1.0f0   1.0f0  0.0f0   1.0f0   1.0f0
+                                1.0f0  -1.0f0  0.0f0   1.0f0  -1.0f0))
    (newgl:indices :initform #(0 1 2 1 3 2))
    (newgl:shader-program :initform (newgl:make-shader-program
                                     (shader-file "hello-fragment.glsl")
                                     (shader-file "simple-vertex.glsl")))
    (start-time :initform (local-time:now)))
   (:documentation "Hello world shader."))
+
+(defmethod newgl:handle-resize ((object hello-world) window width height)
+  (declare (ignorable window width height))
+  (call-next-method))
 
 (defmethod newgl:set-uniforms ((object hello-world))
   (call-next-method)

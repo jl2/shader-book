@@ -20,14 +20,21 @@
 (defclass shaping-functions (newgl:vertex-object)
   ((newgl:vertices :initform #(-1.0f0   1.0f0  0.0f0  -1.0f0   1.0f0
                                -1.0f0  -1.0f0  0.0f0  -1.0f0  -1.0f0
-                               1.0f0   1.0f0  0.0f0   1.0f0   1.0f0
-                               1.0f0  -1.0f0  0.0f0   1.0f0  -1.0f0))
+                                1.0f0   1.0f0  0.0f0   1.0f0   1.0f0
+                                1.0f0  -1.0f0  0.0f0   1.0f0  -1.0f0))
    (newgl:indices :initform #(0 1 2 1 3 2))
    (newgl:shader-program :initform (newgl:make-shader-program
                                     (shader-file "shaping-functions-fragment.glsl")
                                     (shader-file "simple-vertex.glsl")))
    (start-time :initform (local-time:now)))
   (:documentation "Shaping function examples."))
+
+(defmethod newgl:handle-resize ((object shaping-functions) window width height)
+  (declare (ignorable window width height))
+  (call-next-method))
+
+(defun to-f (val)
+  (coerce val 'single-float))
 
 (defmethod newgl:set-uniforms ((object shaping-functions))
   (call-next-method)
@@ -36,21 +43,17 @@
           (cur-pos (glfw:get-cursor-position))
           (win-size (glfw:get-window-size)))
 
-      (newgl:set-uniform newgl:shader-program
-                         "u_time"
-                         (coerce t-diff 'single-float))
-      (newgl:set-uniform newgl:shader-program
-                         "u_resolution"
-                         (vec2 (coerce (car win-size) 'single-float)
-                               (coerce (cadr win-size) 'single-float)))
-      (newgl:set-uniform newgl:shader-program
-                         "u_resolution"
-                         (vec2 (coerce (car cur-pos) 'single-float)
-                               (coerce (cadr cur-pos) 'single-float)))
+      (newgl:set-uniform newgl:shader-program "u_time" (to-f t-diff))
 
-      )))
+      (newgl:set-uniform newgl:shader-program "u_resolution"
+                         (vec2 (to-f (car win-size))
+                               (to-f (cadr win-size))))
 
-(defmethod newgl:update ((object hello-world))
+      (newgl:set-uniform newgl:shader-program "u_mouse"
+                         (vec2 (to-f (car cur-pos))
+                               (to-f (cadr cur-pos)))))))
+
+(defmethod newgl:update ((object shaping-functions))
   (newgl:set-uniforms object))
 
 (defun shaping-functions (&optional debug)

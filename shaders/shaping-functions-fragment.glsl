@@ -20,10 +20,12 @@ float plot(vec2 st, float pct) {
 
 void main() {
      vec2 st = gl_FragCoord.xy / u_resolution;
-     float y = st.x;
+     float y = smoothstep(0.0, 1.0, st.x);
      vec3 color = vec3(y);
 
      // Plot a line
      float pct = plot(st, y);
-     Color = vec4((1.0-pct) * color + pct*vec3(0.0, 1.0, 0.0), 1.0);
+     Color = vec4(
+          (1.0-pct) * color + pct*vec3(0.0, 1.0, 0.0),
+          1.0);
 }
